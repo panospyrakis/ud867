@@ -18,11 +18,11 @@ import com.udacity.spyrakis.jokes.Jokes;
 public class MyEndpoint {
 
     /** A simple endpoint method that takes a name and says Hi back */
-    @ApiMethod(name = "sayHi")
-    public MyBean sayHi() {
+    @ApiMethod(name = "sayJoke")
+    public MyBean sayJoke() {
         MyBean response = new MyBean();
         Jokes jokeGen = new Jokes();
-        response.setData("Hi, " + jokeGen.getJoke());
+        response.setData(jokeGen.getJoke());
 
         return response;
     }
