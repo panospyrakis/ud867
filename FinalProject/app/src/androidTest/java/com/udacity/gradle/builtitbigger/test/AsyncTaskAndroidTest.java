@@ -8,10 +8,13 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.udacity.gradle.builditbigger.EndpointsAsyncTask;
+import com.udacity.gradle.builditbigger.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -25,8 +28,14 @@ public class AsyncTaskAndroidTest {
     public void testVerifyAsyncTaskResponse() {
 
         EndpointsAsyncTask testTask = new EndpointsAsyncTask();
-        testTask.execute();
-        String joke = testTask.getJoke();
+        String joke = null;
+        try {
+            joke = testTask.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         assertNotNull(joke);
         assertFalse(joke.isEmpty());
     }
